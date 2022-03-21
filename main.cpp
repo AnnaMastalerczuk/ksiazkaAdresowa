@@ -291,21 +291,50 @@ void wczytywanieKontaktowPlik(vector <Kontakt>& kontakty, int idZalogowanegoUzyt
     }
 }
 
-int znajdzOstatnieID (vector <Kontakt> &kontakty){
+int znajdzOstatnieID (vector <Kontakt> &kontakty) {
     int nrLini = 0;
+    int nrElementu, id;
     string linia;
+    string tymczasowyZapis;
+    char znak;
 
- fstream plik;
+    fstream plik;
     plik.open("ksiazkaAdresowa.txt", ios::in);
 
     if(plik.good() == true) {
 
         while (getline(plik, linia)) {
-                nrLini++;
+
+            nrElementu = 0;
+
+            for (int i = 0; i < linia.length(); i++) {
+                znak = linia[i];
+
+                if (znak != '|') {
+                    tymczasowyZapis += znak;
+
+                } else {
+
+                    switch(nrElementu) {
+                    case 0:
+                        id = atoi(tymczasowyZapis.c_str());
+                    default:
+                        break;
+                    }
+
+                    tymczasowyZapis = "";
+                    nrElementu++;
+
+                }
+            }
         }
+
+
+        nrLini++;
     }
 
-    return nrLini;
+
+    return id;
 
 }
 
@@ -382,7 +411,7 @@ void wyszukajKontaktImie(vector <Kontakt>& kontakty, int idZalogowanegoUzytkowni
         if (imie == imieDoPorownania && idDoPorownania == idZalogowanegoUzytkownika) {
             flag = false;
             cout << "ID Kontaktu " << kontakty[i].id << endl;
-            cout << "ID Uzytkownika " << kontakty[i].idUzytkownika << endl;
+            //cout << "ID Uzytkownika " << kontakty[i].idUzytkownika << endl;
             cout << "Imie: "<<kontakty[i].imie << endl;
             cout << "Nazwisko: " << kontakty[i].nazwisko << endl;
             cout << "Numer telefonu: " << kontakty[i].nrTelefonu << endl;
@@ -416,7 +445,7 @@ void wyszukajKontaktNazwisko(vector <Kontakt>& kontakty, int idZalogowanegoUzytk
         if (nazwisko == nazwiskoDoPorownania && idDoPorownania == idZalogowanegoUzytkownika) {
             flag = false;
             cout << "ID Kontaktu " << kontakty[i].id << endl;
-            cout << "ID Uzytkownika " << kontakty[i].idUzytkownika << endl;
+            //cout << "ID Uzytkownika " << kontakty[i].idUzytkownika << endl;
             cout << "Imie: " << kontakty[i].imie << endl;
             cout << "Nazwisko: " << kontakty[i].nazwisko << endl;
             cout << "Numer telefonu: " << kontakty[i].nrTelefonu << endl;
@@ -445,7 +474,7 @@ void wyswietlKontakty(vector <Kontakt>& kontakty, int idZalogowanegoUzytkownika)
         for (int i = 0; i < rozmiarWektora; i++) {
             if (kontakty[i].idUzytkownika == idZalogowanegoUzytkownika) {
                 cout << "ID Kontaktu " << kontakty[i].id << endl;
-                cout << "ID Uzytkownika " << kontakty[i].idUzytkownika << endl;
+                //cout << "ID Uzytkownika " << kontakty[i].idUzytkownika << endl;
                 cout << "Imie: " << kontakty[i].imie << endl;
                 cout << "Nazwisko: " << kontakty[i].nazwisko << endl;
                 cout << "Numer telefonu: " << kontakty[i].nrTelefonu << endl;
