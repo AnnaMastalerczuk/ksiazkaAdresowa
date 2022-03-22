@@ -293,7 +293,8 @@ void wczytywanieKontaktowPlik(vector <Kontakt>& kontakty, int idZalogowanegoUzyt
 
 int znajdzOstatnieID (vector <Kontakt> &kontakty) {
     int nrLini = 0;
-    int nrElementu, id;
+    int nrElementu;
+    int id =0;
     string linia;
     string tymczasowyZapis;
     char znak;
